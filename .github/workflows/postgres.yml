@@ -47,10 +47,10 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform plan -input=false -out=tfplan
 
-      - name: Terraform destroy
+      - name: Terraform apply
         if: github.ref == 'refs/heads/main'
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform destroy -input=false -auto-approve tfdestroy
+        run: terraform apply -input=false -auto-approve tfdestroy
 
               # 🔍 Check if there are any .tf files
       - name: Check for Terraform files
