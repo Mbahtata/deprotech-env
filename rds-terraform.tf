@@ -102,7 +102,7 @@ resource "aws_security_group" "rds" {
 resource "aws_db_instance" "postgres" {
   identifier                 = "my-postgres-db"
   engine                     = "postgres"
-  engine_version             = "16.4"
+  engine_version             = "16.3"
   instance_class             = "db.t3.micro"
   allocated_storage          = 20
   username                = "maloke"
