@@ -15,6 +15,10 @@ variable "db_password" {
   default = "admin123"
 }
 
+db_username = "maloke"
+
+db_password = "admin123"
+
 resource "aws_db_subnet_group" "this" {
   name       = "rds-postgres-subnet-group"
   subnet_ids = ["subnet-123", "subnet-456"]  # update
