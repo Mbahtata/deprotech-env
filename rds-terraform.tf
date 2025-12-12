@@ -1,13 +1,3 @@
-terraform {
-  required_version = ">= 1.5.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
 
 provider "aws" {
   region = "us-east-1"
@@ -16,16 +6,18 @@ provider "aws" {
 variable "db_username" {
   type      = string
   sensitive = true
+  default = "maloke"
 }
 
 variable "db_password" {
   type      = string
   sensitive = true
+  default = "admin123"
 }
 
 resource "aws_db_subnet_group" "this" {
   name       = "rds-postgres-subnet-group"
-  subnet_ids = [/* your subnet IDs here */]
+  subnet_ids = ["subnet-123", "subnet-456"]  # update
 
   tags = {
     Name = "rds-postgres-subnet-group"
@@ -35,13 +27,13 @@ resource "aws_db_subnet_group" "this" {
 resource "aws_db_instance" "postgres" {
   identifier              = "my-postgres-db"
   engine                  = "postgres"
-  engine_version          = "16.4"        # adjust as needed
+  engine_version          = "16.4"
   instance_class          = "db.t3.micro"
   allocated_storage       = 20
-  username                = var.db_username
+  username                = var.db_usernam
   password                = var.db_password
+  vpc_security_group_ids  = ["sg-123456789"]  # update
   db_subnet_group_name    = aws_db_subnet_group.this.name
-  vpc_security_group_ids  = [/* your SG IDs here */]
   skip_final_snapshot     = true
   publicly_accessible     = false
   deletion_protection     = false
@@ -52,3 +44,4 @@ resource "aws_db_instance" "postgres" {
     Env  = "dev"
   }
 }
+
