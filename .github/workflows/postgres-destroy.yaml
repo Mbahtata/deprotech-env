@@ -55,16 +55,3 @@ jobs:
         if: github.event.inputs.destroy == 'true'
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform destroy -input=false -auto-approve
-
-      # -------------------------------
-      # 🚀 CREATE / UPDATE INFRA
-      # -------------------------------
-      - name: Terraform Plan
-        if: github.event.inputs.destroy != 'true'
-        working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform plan -input=false -out=tfplan
-
-      - name: Terraform Apply
-        if: github.event.inputs.destroy != 'true' && github.ref == 'refs/heads/main'
-        working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform apply -input=false -auto-approve tfplan
