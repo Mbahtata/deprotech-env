@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  TF_WORKING_DIR: infra/terraform/rds-postgres   # change if needed
+  TF_WORKING_DIR: deprotech-env # change if needed
 
   # --- HARD CODED DB CREDENTIALS ---
   #DB_USERNAME: mydbadmin
