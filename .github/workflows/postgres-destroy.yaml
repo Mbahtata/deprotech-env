@@ -13,7 +13,8 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  TF_WORKING_DIR: .   # 👈 set this to the folder that contains your .tf files (e.g. "." or "rds-terraform")
+  # 👇 set this to the folder that contains your .tf files (e.g. "." or "rds-terraform")
+  TF_WORKING_DIR: .
   # DB_USERNAME: mydbadmin
   # DB_PASSWORD: MyStrongPassword123!
   # TF_VAR_db_username: mydbadmin
@@ -55,3 +56,16 @@ jobs:
         if: github.event.inputs.destroy == 'true'
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform destroy -input=false -auto-approve
+
+      # -------------------------------
+      # 🚀 CREATE / UPDATE INFRA
+      # -------------------------------
+      - name: Terraform Plan
+        if: github.event.inputs.destroy != 'true'
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform plan -input=false -out=tfplan
+
+      - name: Terraform Apply
+        if: github.event.inputs.destroy != 'true' && github.ref == 'refs/heads/main'
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: terraform apply -input=false -auto-approve tfplan
