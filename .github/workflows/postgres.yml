@@ -5,6 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+      inputs:
+      destroy:
+        description: "Destroy infrastructure instead of creating?"
+        required: false
+        default: "false"
 
 env:
   AWS_REGION: us-east-1
@@ -55,14 +60,6 @@ jobs:
 
         name: Provision or Destroy RDS PostgreSQL (us-east-1)
 
-
-    inputs:
-      destroy:
-        description: "Destroy infrastructure instead of creating?"
-        required: false
-        default: "false"
-
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
