@@ -43,11 +43,11 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform init -input=false
 
-      - name: Terraform Plan
+      - name: Terraform plan
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform plan -input=false -out=tfplan
 
       - name: Terraform destroy
         if: github.ref == 'refs/heads/main'
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform destroy -input=false -auto-approve tfplan
+        run: terraform destroy -input=false -auto-approve tfdestroy
