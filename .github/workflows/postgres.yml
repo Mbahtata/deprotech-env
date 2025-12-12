@@ -55,24 +55,12 @@ jobs:
 
         name: Provision or Destroy RDS PostgreSQL (us-east-1)
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+
     inputs:
       destroy:
         description: "Destroy infrastructure instead of creating?"
         required: false
         default: "false"
-
-env:
-  AWS_REGION: us-east-1
-  TF_WORKING_DIR: .   # FOLDER where your .tf files exist
-
-jobs:
-  terraform:
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
